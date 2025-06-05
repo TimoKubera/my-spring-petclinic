@@ -95,8 +95,14 @@ public class Owner extends Person {
 	}
 
 	public void addPet(Pet pet) {
+		if (pet == null) {
+			throw new IllegalArgumentException("Pet must not be null.");
+		}
 		if (pet.isNew()) {
 			getPets().add(pet);
+			System.out.println("New pet added: " + pet.getName());
+		} else {
+			System.out.println("Existing pet not added again: " + pet.getName());
 		}
 	}
 
@@ -115,11 +121,14 @@ public class Owner extends Person {
 	 * @return the Pet with the given id, or null if no such Pet exists for this Owner
 	 */
 	public Pet getPet(Integer id) {
+		System.out.println("Searching for pet with ID: " + id);
 		for (Pet pet : getPets()) {
-			if (Objects.equals(pet.getId(), id)) {
+			if (pet != null && id != null && id.equals(pet.getId())) {
+				System.out.println("Pet found with ID: " + id);
 				return pet;
 			}
 		}
+		System.out.println("No pet found with ID: " + id);
 		return null;
 	}
 
@@ -130,10 +139,13 @@ public class Owner extends Person {
 	 * @return the Pet with the given name, or null if no such Pet exists for this Owner
 	 */
 	public Pet getPet(String name, boolean ignoreNew) {
+		System.out.println("Searching for pet with name: " + name + ", ignoreNew=" + ignoreNew);
 		for (Pet pet : getPets()) {
 			String compName = pet.getName();
-			if (compName != null && compName.equalsIgnoreCase(name) && (!ignoreNew || !pet.isNew())) {
-				return pet;
+			if (compName != null && compName.equalsIgnoreCase(name)) {
+				if (!ignoreNew || !pet.isNew()) {
+					return pet;
+				}
 			}
 		}
 		return null;
@@ -166,5 +178,4 @@ public class Owner extends Person {
 		Assert.notNull(pet, "Invalid Pet identifier!");
 		pet.addVisit(visit);
 	}
-
 }
