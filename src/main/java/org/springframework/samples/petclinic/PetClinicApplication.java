@@ -16,22 +16,54 @@
 
 package org.springframework.samples.petclinic;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportRuntimeHints;
+import org.springframework.core.env.Environment;
 
 /**
  * PetClinic Spring Boot Application.
  *
  * @author Dave Syer
- *
  */
 @SpringBootApplication
 @ImportRuntimeHints(PetClinicRuntimeHints.class)
 public class PetClinicApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(PetClinicApplication.class, args);
-	}
+    private static final Logger log = LoggerFactory.getLogger(PetClinicApplication.class);
 
+    /**
+     * Main method to start the Spring Boot application with sensible defaults:
+     * - Disables the default Spring banner
+     * - Sets a default profile if none provided
+     * - Logs application URLs on startup
+     */
+    public static void main(String[] args) throws UnknownHostException {
+        SpringApplication app = new SpringApplication(PetClinicApplication.class);
+        // Disable the Spring Boot startup banner
+        app.setBannerMode(Banner.Mode.OFF);
+        // Apply a default profile if no profile is set (e.g., 'dev')
+        DefaultProfileUtil.addDefaultProfile(app);
+        Environment env = app.run(args).getEnvironment();
+
+        String protocol = env.getProperty("server.ssl.key-store") != null ? "https" : "http";
+        String serverPort = env.getProperty("server.port");
+        String contextPath = env.getProperty("server.servlet.context-path", "");
+        String hostAddress = InetAddress.getLocalHost().getHostAddress();
+
+        log.info("\n----------------------------------------------------------\n" +
+                 "\tApplication '{}' is running! Access URLs:\n" +
+                 "\tLocal:      {}://localhost:{}{}\n" +
+                 "\tExternal:   {}://{}:{}{}\n" +
+                 "----------------------------------------------------------",
+                 env.getProperty("spring.application.name"),
+                 protocol, serverPort, contextPath,
+                 protocol, hostAddress, serverPort, contextPath);
+    }
 }
