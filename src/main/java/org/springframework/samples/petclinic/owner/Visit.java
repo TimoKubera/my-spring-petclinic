@@ -21,7 +21,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.samples.petclinic.model.BaseEntity;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -47,10 +46,6 @@ public class Visit extends BaseEntity {
 	 */
 	public Visit() {
 		this.date = LocalDate.now();
-	}
-
-	public LocalDate getDate() {
-		return this.date;
 	}
 
 	public void setDate(LocalDate date) {

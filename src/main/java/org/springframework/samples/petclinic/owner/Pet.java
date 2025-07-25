@@ -21,7 +21,6 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.samples.petclinic.model.NamedEntity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -84,9 +83,6 @@ public class Pet extends NamedEntity {
 		getVisits().add(visit);
 	}
 
-	public boolean isNewPet() {
-		return isNewPet;
-	}
 
 	public void setNewPet(boolean isNewPet) {
 		this.isNewPet = isNewPet;
