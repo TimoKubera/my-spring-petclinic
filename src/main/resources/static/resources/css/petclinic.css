@@ -9428,15 +9428,6 @@ strong {
   opacity: 0;
   -moz-transition: opacity 0.12s ease-in-out;
   -webkit-transition: opacity 0.12s ease-in-out;
-  -o-transition: opacity 0.12s ease-in-out; }
-
-.navbar a.navbar-brand:hover span {
-  opacity: 1; }
-
-.navbar li > a, .navbar-text {
-  font-family: "montserratregular", sans-serif;
-  text-shadow: none;
-  font-size: 14px;
   /* line-height: 14px; */
   padding: 28px 20px;
   transition: all 0.15s;
