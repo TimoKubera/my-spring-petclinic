@@ -2892,14 +2892,17 @@ textarea.form-control-lg {
   margin-left: 0; }
 
 .dropstart .dropdown-toggle::before {
-  vertical-align: 0; }
+  vertical-align: 0;
+  color: var(--bs-dropdown-link-color);
+}
 
 .dropdown-divider {
   height: 0;
   margin: var(--bs-dropdown-divider-margin-y) 0;
   overflow: hidden;
   border-top: 1px solid var(--bs-dropdown-divider-bg);
-  opacity: 1; }
+  opacity: 1;
+}
 
 .dropdown-item {
   display: block;
