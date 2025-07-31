@@ -478,11 +478,6 @@ legend {
 [type="search"] {
   -webkit-appearance: textfield;
   outline-offset: -2px; }
-
-/* rtl:raw:
-[type="tel"],
-[type="url"],
-[type="email"],
 [type="number"] {
   direction: ltr;
 }
